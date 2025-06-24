@@ -1,8 +1,8 @@
 <?php
 
-namespace TCG\Voyager\Tests;
+namespace Tuyck\Voyager\Tests;
 
-use TCG\Voyager\Facades\Voyager;
+use Tuyck\Voyager\Facades\Voyager;
 
 class ViewEventTest extends TestCase
 {

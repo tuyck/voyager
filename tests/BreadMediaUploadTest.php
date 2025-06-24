@@ -1,13 +1,13 @@
 <?php
 
-namespace TCG\Voyager\Tests;
+namespace Tuyck\Voyager\Tests;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use TCG\Voyager\Models\DataRow;
-use TCG\Voyager\Models\DataType;
-use TCG\Voyager\Models\Page;
+use Tuyck\Voyager\Models\DataRow;
+use Tuyck\Voyager\Models\DataType;
+use Tuyck\Voyager\Models\Page;
 
 class BreadMediaUploadTest extends TestCase
 {

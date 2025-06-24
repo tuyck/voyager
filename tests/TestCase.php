@@ -1,11 +1,11 @@
 <?php
 
-namespace TCG\Voyager\Tests;
+namespace Tuyck\Voyager\Tests;
 
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Orchestra\Testbench\BrowserKit\TestCase as OrchestraTestCase;
-use TCG\Voyager\Models\User;
-use TCG\Voyager\VoyagerServiceProvider;
+use Tuyck\Voyager\Models\User;
+use Tuyck\Voyager\VoyagerServiceProvider;
 
 class TestCase extends OrchestraTestCase
 {
