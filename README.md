@@ -1,8 +1,9 @@
-<p align="center"><a href="https://voyager.devdojo.com" target="_blank"><img width="400" src="https://s3.amazonaws.com/thecontrolgroup/voyager.png"></a></p>
+> [!Warning]
+> The main Voyager repository is archived by [The Control Group](https://www.thecontrolgroup.com) as there are many more modern options available. You may still use Voyager, but it will not be receiving any more updates.
 
-> Voyager is built with Vue and Bootstrap. If you are looking for a Laravel Starter Kit built that uses Livewire and Tailwind, you may be interested in checking out [Genesis](https://github.com/thedevdojo/genesis)
+> [!Note]
+> This repository is fun place for my personal usage and still is under adjustment
 
-<p align="center"><a href="https://github.com/thedevdojo/genesis" target="_blank"><img src="https://github.com/thedevdojo/voyager/assets/601261/6ffa6ac4-ea1e-4c8a-8360-b347377b8201" height="auto" width="100%"></a></p>
 
 <p align="center">
 <a href="https://packagist.org/packages/tcg/voyager"><img src="https://poser.pugx.org/tcg/voyager/downloads.svg?format=flat" alt="Total Downloads"></a>
@@ -12,15 +13,12 @@
 </p>
 
 # **V**oyager - The Missing Laravel Admin
-Made with ❤️ by [The Control Group](https://www.thecontrolgroup.com)
 
 ![Voyager Screenshot](https://s3.amazonaws.com/thecontrolgroup/voyager-screenshot.png)
 
-Website & Documentation: https://voyager.devdojo.com/
+Website & Documentation: https://voyager.tuyck.com/
 
-Video Tutorial Here: https://voyager.devdojo.com/academy/
-
-Join our Slack chat: https://voyager-slack-invitation.herokuapp.com/
+Video Tutorial Here: https://voyager.tuyck.com/academy/
 
 View the Voyager Cheat Sheet: https://voyager-cheatsheet.ulties.com/
 
@@ -28,7 +26,7 @@ View the Voyager Cheat Sheet: https://voyager-cheatsheet.ulties.com/
 
 Laravel Admin & BREAD System (Browse, Read, Edit, Add, & Delete), supporting Laravel 8 and newer!
 
-> Want to use Laravel 6 or 7? Use [Voyager 1.5](https://github.com/the-control-group/voyager/tree/1.5)
+> Want to use Laravel 9 or 10? Use [Voyager 1.7](https://github.com/tuyck/voyager/tree/1.7)
 
 ## Installation Steps
 
@@ -37,13 +35,13 @@ Laravel Admin & BREAD System (Browse, Read, Edit, Add, & Delete), supporting Lar
 After creating your new Laravel application you can include the Voyager package with the following command:
 
 ```bash
-composer require tcg/voyager
+composer require tuyck/voyager
 ```
 
 > If you are installing this on Laravel 10, we are working on getting a permanent release available; however, you can still use this with Larvel 10 by requiring the following:
 
 ```bash
-composer require tcg/voyager dev-1.6-l10
+composer require tuyck/voyager dev-1.6-l10
 ```
 
 ### 2. Add the DB Credentials & APP_URL

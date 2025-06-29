@@ -1,26 +1,26 @@
 <?php
 
-namespace TCG\Voyager\Tests;
+namespace Tuyck\Voyager\Tests;
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
-use TCG\Voyager\Events\BreadAdded;
-use TCG\Voyager\Events\BreadDataAdded;
-use TCG\Voyager\Events\BreadDataDeleted;
-use TCG\Voyager\Events\BreadDataUpdated;
-use TCG\Voyager\Events\BreadDeleted;
-use TCG\Voyager\Events\BreadImagesDeleted;
-use TCG\Voyager\Events\BreadUpdated;
-use TCG\Voyager\Events\FileDeleted;
-use TCG\Voyager\Events\MediaFileAdded;
-use TCG\Voyager\Events\TableAdded;
-use TCG\Voyager\Events\TableDeleted;
-use TCG\Voyager\Events\TableUpdated;
-use TCG\Voyager\Models\DataType;
-use TCG\Voyager\Models\Page;
+use Tuyck\Voyager\Events\BreadAdded;
+use Tuyck\Voyager\Events\BreadDataAdded;
+use Tuyck\Voyager\Events\BreadDataDeleted;
+use Tuyck\Voyager\Events\BreadDataUpdated;
+use Tuyck\Voyager\Events\BreadDeleted;
+use Tuyck\Voyager\Events\BreadImagesDeleted;
+use Tuyck\Voyager\Events\BreadUpdated;
+use Tuyck\Voyager\Events\FileDeleted;
+use Tuyck\Voyager\Events\MediaFileAdded;
+use Tuyck\Voyager\Events\TableAdded;
+use Tuyck\Voyager\Events\TableDeleted;
+use Tuyck\Voyager\Events\TableUpdated;
+use Tuyck\Voyager\Models\DataType;
+use Tuyck\Voyager\Models\Page;
 
 class EventTest extends TestCase
 {

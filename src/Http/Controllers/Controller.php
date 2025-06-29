@@ -1,6 +1,6 @@
 <?php
 
-namespace TCG\Voyager\Http\Controllers;
+namespace Tuyck\Voyager\Http\Controllers;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -9,19 +9,19 @@ use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Storage;
-use TCG\Voyager\Events\FileDeleted;
-use TCG\Voyager\Http\Controllers\ContentTypes\Checkbox;
-use TCG\Voyager\Http\Controllers\ContentTypes\Coordinates;
-use TCG\Voyager\Http\Controllers\ContentTypes\File;
-use TCG\Voyager\Http\Controllers\ContentTypes\Image as ContentImage;
-use TCG\Voyager\Http\Controllers\ContentTypes\MultipleCheckbox;
-use TCG\Voyager\Http\Controllers\ContentTypes\MultipleImage;
-use TCG\Voyager\Http\Controllers\ContentTypes\Password;
-use TCG\Voyager\Http\Controllers\ContentTypes\Relationship;
-use TCG\Voyager\Http\Controllers\ContentTypes\SelectMultiple;
-use TCG\Voyager\Http\Controllers\ContentTypes\Text;
-use TCG\Voyager\Http\Controllers\ContentTypes\Timestamp;
-use TCG\Voyager\Traits\AlertsMessages;
+use Tuyck\Voyager\Events\FileDeleted;
+use Tuyck\Voyager\Http\Controllers\ContentTypes\Checkbox;
+use Tuyck\Voyager\Http\Controllers\ContentTypes\Coordinates;
+use Tuyck\Voyager\Http\Controllers\ContentTypes\File;
+use Tuyck\Voyager\Http\Controllers\ContentTypes\Image as ContentImage;
+use Tuyck\Voyager\Http\Controllers\ContentTypes\MultipleCheckbox;
+use Tuyck\Voyager\Http\Controllers\ContentTypes\MultipleImage;
+use Tuyck\Voyager\Http\Controllers\ContentTypes\Password;
+use Tuyck\Voyager\Http\Controllers\ContentTypes\Relationship;
+use Tuyck\Voyager\Http\Controllers\ContentTypes\SelectMultiple;
+use Tuyck\Voyager\Http\Controllers\ContentTypes\Text;
+use Tuyck\Voyager\Http\Controllers\ContentTypes\Timestamp;
+use Tuyck\Voyager\Traits\AlertsMessages;
 use Validator;
 
 abstract class Controller extends BaseController

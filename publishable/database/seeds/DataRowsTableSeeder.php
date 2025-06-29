@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use TCG\Voyager\Models\DataRow;
-use TCG\Voyager\Models\DataType;
+use Tuyck\Voyager\Models\DataRow;
+use Tuyck\Voyager\Models\DataType;
 
 class DataRowsTableSeeder extends Seeder
 {
@@ -147,7 +147,7 @@ class DataRowsTableSeeder extends Seeder
                 'add'          => 1,
                 'delete'       => 0,
                 'details'      => [
-                    'model'       => 'TCG\\Voyager\\Models\\Role',
+                    'model'       => 'Tuyck\\Voyager\\Models\\Role',
                     'table'       => 'roles',
                     'type'        => 'belongsTo',
                     'column'      => 'role_id',
@@ -172,7 +172,7 @@ class DataRowsTableSeeder extends Seeder
                 'add'          => 1,
                 'delete'       => 0,
                 'details'      => [
-                    'model'       => 'TCG\\Voyager\\Models\\Role',
+                    'model'       => 'Tuyck\\Voyager\\Models\\Role',
                     'table'       => 'roles',
                     'type'        => 'belongsToMany',
                     'column'      => 'id',

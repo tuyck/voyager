@@ -1,25 +1,25 @@
 <?php
 
-namespace TCG\Voyager\Tests\Unit\Actions;
+namespace Tuyck\Voyager\Tests\Unit\Actions;
 
-use TCG\Voyager\Actions\AbstractAction;
-use TCG\Voyager\Facades\Voyager;
-use TCG\Voyager\Models\User;
-use TCG\Voyager\Tests\TestCase;
+use Tuyck\Voyager\Actions\AbstractAction;
+use Tuyck\Voyager\Facades\Voyager;
+use Tuyck\Voyager\Models\User;
+use Tuyck\Voyager\Tests\TestCase;
 
 class AbstractActionTest extends TestCase
 {
     /**
      * The users DataType instance.
      *
-     * @var \TCG\Voyager\Models\DataType
+     * @var \Tuyck\Voyager\Models\DataType
      */
     protected $userDataType;
 
     /**
      * A dummy user instance.
      *
-     * @var \TCG\Voyager\Models\User
+     * @var \Tuyck\Voyager\Models\User
      */
     protected $user;
 
@@ -28,7 +28,7 @@ class AbstractActionTest extends TestCase
         parent::setUp();
 
         $this->userDataType = Voyager::model('DataType')->where('name', 'users')->first();
-        $this->user = \TCG\Voyager\Models\User::factory()->create();
+        $this->user = \Tuyck\Voyager\Models\User::factory()->create();
     }
 
     /**

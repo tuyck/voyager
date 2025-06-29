@@ -1,8 +1,8 @@
 <?php
 
-namespace TCG\Voyager;
+namespace Tuyck\Voyager;
 
-use TCG\Voyager\Alert\Components\ComponentInterface;
+use Tuyck\Voyager\Alert\Components\ComponentInterface;
 
 class Alert
 {

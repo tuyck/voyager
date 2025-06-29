@@ -1,6 +1,6 @@
 <?php
 
-namespace TCG\Voyager\Widgets;
+namespace Tuyck\Voyager\Widgets;
 
 use Arrilot\Widgets\AbstractWidget;
 

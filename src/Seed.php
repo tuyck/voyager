@@ -1,6 +1,6 @@
 <?php
 
-namespace TCG\Voyager;
+namespace Tuyck\Voyager;
 
 class Seed
 {

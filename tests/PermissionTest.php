@@ -1,10 +1,10 @@
 <?php
 
-namespace TCG\Voyager\Tests;
+namespace Tuyck\Voyager\Tests;
 
 use Illuminate\Support\Facades\Auth;
-use TCG\Voyager\Models\Permission;
-use TCG\Voyager\Models\Role;
+use Tuyck\Voyager\Models\Permission;
+use Tuyck\Voyager\Models\Role;
 
 class PermissionTest extends TestCase
 {

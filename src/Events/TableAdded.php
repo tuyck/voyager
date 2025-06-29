@@ -1,9 +1,9 @@
 <?php
 
-namespace TCG\Voyager\Events;
+namespace Tuyck\Voyager\Events;
 
 use Illuminate\Queue\SerializesModels;
-use TCG\Voyager\Database\Schema\Table;
+use Tuyck\Voyager\Database\Schema\Table;
 
 class TableAdded
 {

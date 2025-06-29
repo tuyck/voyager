@@ -1,9 +1,9 @@
 <?php
 
-namespace TCG\Voyager\Events;
+namespace Tuyck\Voyager\Events;
 
 use Illuminate\Queue\SerializesModels;
-use TCG\Voyager\Models\Menu;
+use Tuyck\Voyager\Models\Menu;
 
 class MenuDisplay
 {

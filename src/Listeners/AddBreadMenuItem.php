@@ -1,9 +1,9 @@
 <?php
 
-namespace TCG\Voyager\Listeners;
+namespace Tuyck\Voyager\Listeners;
 
-use TCG\Voyager\Events\BreadAdded;
-use TCG\Voyager\Facades\Voyager;
+use Tuyck\Voyager\Events\BreadAdded;
+use Tuyck\Voyager\Facades\Voyager;
 
 class AddBreadMenuItem
 {

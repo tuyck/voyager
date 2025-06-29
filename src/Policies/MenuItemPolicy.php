@@ -1,9 +1,9 @@
 <?php
 
-namespace TCG\Voyager\Policies;
+namespace Tuyck\Voyager\Policies;
 
-use TCG\Voyager\Contracts\User;
-use TCG\Voyager\Facades\Voyager;
+use Tuyck\Voyager\Contracts\User;
+use Tuyck\Voyager\Facades\Voyager;
 
 class MenuItemPolicy extends BasePolicy
 {
