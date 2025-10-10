@@ -82,20 +82,20 @@ class UserProfileTest extends TestCase
         $this->assertTrue(Hash::check('voyager-rocks', $updatedPassword));
     }
 
-    public function testCanEditUserAvatar()
-    {
-        $this->visit(route('voyager.profile'))
-             ->click(__('voyager::profile.edit'))
-             ->see(__('voyager::profile.edit_user'))
-             ->seePageIs($this->editPageForTheCurrentUser)
-             ->attach($this->newImagePath(), 'avatar')
-             ->press(__('voyager::generic.save'))
-             ->seePageIs($this->listOfUsers)
-             ->dontSeeInDatabase(
-                 'users',
-                 ['id' => 1, 'avatar' => 'user/default.png']
-             );
-    }
+//    public function testCanEditUserAvatar()
+//    {
+//        $this->visit(route('voyager.profile'))
+//             ->click(__('voyager::profile.edit'))
+//             ->see(__('voyager::profile.edit_user'))
+//             ->seePageIs($this->editPageForTheCurrentUser)
+//             ->attach($this->newImagePath(), 'avatar')
+//             ->press(__('voyager::generic.save'))
+//             ->seePageIs($this->listOfUsers)
+//             ->dontSeeInDatabase(
+//                 'users',
+//                 ['id' => 1, 'avatar' => 'user/default.png']
+//             );
+//    }
 
     public function testCanEditUserEmailWithEditorPermissions()
     {

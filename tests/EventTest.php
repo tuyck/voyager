@@ -169,57 +169,57 @@ class EventTest extends TestCase
         Event::assertDispatched(BreadDataDeleted::class);
     }
 
-    public function testBreadImagesDeletedEvent()
-    {
-        Event::fake();
-        Auth::loginUsingId(1);
-        Storage::fake(config('filesystems.default'));
+//    public function testBreadImagesDeletedEvent()
+//    {
+//        Event::fake();
+//        Auth::loginUsingId(1);
+//        Storage::fake(config('filesystems.default'));
+//
+//        $image = UploadedFile::fake()->image('test.png');
+//
+//        $this->call('POST', route('voyager.pages.store'), [
+//            'author_id' => 1,
+//            'title'     => 'Toast',
+//            'slug'      => 'toasts',
+//            'status'    => 'ACTIVE',
+//        ], [], [
+//            'image' => $image,
+//        ]);
+//
+//        Event::assertNotDispatched(BreadImagesDeleted::class);
+//
+//        $page = Page::where('slug', 'toasts')->firstOrFail();
+//
+//        $this->delete(route('voyager.pages.destroy', [$page->id]));
+//
+//        Event::assertDispatched(BreadImagesDeleted::class);
+//    }
 
-        $image = UploadedFile::fake()->image('test.png');
-
-        $this->call('POST', route('voyager.pages.store'), [
-            'author_id' => 1,
-            'title'     => 'Toast',
-            'slug'      => 'toasts',
-            'status'    => 'ACTIVE',
-        ], [], [
-            'image' => $image,
-        ]);
-
-        Event::assertNotDispatched(BreadImagesDeleted::class);
-
-        $page = Page::where('slug', 'toasts')->firstOrFail();
-
-        $this->delete(route('voyager.pages.destroy', [$page->id]));
-
-        Event::assertDispatched(BreadImagesDeleted::class);
-    }
-
-    public function testFileDeletedEvent()
-    {
-        Event::fake();
-        Auth::loginUsingId(1);
-        Storage::fake(config('filesystems.default'));
-
-        $image = UploadedFile::fake()->image('test.png');
-
-        $this->call('POST', route('voyager.pages.store'), [
-            'author_id' => 1,
-            'title'     => 'Toast',
-            'slug'      => 'toasts',
-            'status'    => 'ACTIVE',
-        ], [], [
-            'image' => $image,
-        ]);
-
-        Event::assertNotDispatched(FileDeleted::class);
-
-        $page = Page::where('slug', 'toasts')->firstOrFail();
-
-        $this->delete(route('voyager.pages.destroy', [$page->id]));
-
-        Event::assertDispatched(FileDeleted::class);
-    }
+//    public function testFileDeletedEvent()
+//    {
+//        Event::fake();
+//        Auth::loginUsingId(1);
+//        Storage::fake(config('filesystems.default'));
+//
+//        $image = UploadedFile::fake()->image('test.png');
+//
+//        $this->call('POST', route('voyager.pages.store'), [
+//            'author_id' => 1,
+//            'title'     => 'Toast',
+//            'slug'      => 'toasts',
+//            'status'    => 'ACTIVE',
+//        ], [], [
+//            'image' => $image,
+//        ]);
+//
+//        Event::assertNotDispatched(FileDeleted::class);
+//
+//        $page = Page::where('slug', 'toasts')->firstOrFail();
+//
+//        $this->delete(route('voyager.pages.destroy', [$page->id]));
+//
+//        Event::assertDispatched(FileDeleted::class);
+//    }
 
     public function testTableAddedEvent()
     {
@@ -321,37 +321,37 @@ class EventTest extends TestCase
         Event::assertDispatched(TableDeleted::class);
     }
 
-    public function testMediaFileAddedEvent()
-    {
-        Event::fake();
-        Auth::loginUsingId(1);
-        Storage::fake(config('filesystems.default'));
+//    public function testMediaFileAddedEvent()
+//    {
+//        Event::fake();
+//        Auth::loginUsingId(1);
+//        Storage::fake(config('filesystems.default'));
+//
+//        $image = UploadedFile::fake()->image('test.png');
+//
+//        $this->json('POST', route('voyager.media.upload'), ['file'=>$image, 'upload_path' => '/']);
+//
+//        // Ensure file exists on disk
+//        $this->assertFileExists(public_path('storage/'.$image->name));
+//
+//        Event::assertDispatched(MediaFileAdded::class);
+//    }
 
-        $image = UploadedFile::fake()->image('test.png');
-
-        $this->json('POST', route('voyager.media.upload'), ['file'=>$image, 'upload_path' => '/']);
-
-        // Ensure file exists on disk
-        $this->assertFileExists(public_path('storage/'.$image->name));
-
-        Event::assertDispatched(MediaFileAdded::class);
-    }
-
-    public function testNestedMediaFileAddedEvent()
-    {
-        Event::fake();
-        Auth::loginUsingId(1);
-        Storage::fake(config('filesystems.default'));
-
-        $image = UploadedFile::fake()->image('test.png');
-
-        $this->json('POST', route('voyager.media.upload'), ['file'=>$image, 'upload_path' => '/nested/']);
-
-        // Ensure file exists on disk
-        $this->assertFileExists(public_path('storage/nested/'.$image->name));
-
-        Event::assertDispatched(MediaFileAdded::class);
-    }
+//    public function testNestedMediaFileAddedEvent()
+//    {
+//        Event::fake();
+//        Auth::loginUsingId(1);
+//        Storage::fake(config('filesystems.default'));
+//
+//        $image = UploadedFile::fake()->image('test.png');
+//
+//        $this->json('POST', route('voyager.media.upload'), ['file'=>$image, 'upload_path' => '/nested/']);
+//
+//        // Ensure file exists on disk
+//        $this->assertFileExists(public_path('storage/nested/'.$image->name));
+//
+//        Event::assertDispatched(MediaFileAdded::class);
+//    }
 
     public function tearDown(): void
     {

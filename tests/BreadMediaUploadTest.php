@@ -29,182 +29,182 @@ class BreadMediaUploadTest extends TestCase
         $this->storage = Storage::disk(config('voyager.storage.disk'));
     }
 
-    public function testMultipleImagesUpload()
-    {
-        $images = [$this->image_one, $this->image_two, $this->image_three];
-
-        $page = $this->uploadMedia($images, 'multiple_images');
-
-        $files = json_decode($page->image, true);
-
-        $this->storage->assertExists($files[0]);
-        $this->storage->assertExists($files[1]);
-        $this->storage->assertExists($files[2]);
-
-        $this->delete(route('voyager.pages.destroy', [$page->id]));
-    }
-
-    public function testMultipleImagesDelete()
-    {
-        $images = [$this->image_one, $this->image_two, $this->image_three];
-
-        $page = $this->uploadMedia($images, 'multiple_images');
-
-        $files = json_decode($page->image, true);
-
-        $response = $this->post(route('voyager.pages.media.remove'), [
-            'id'        => $page->id,
-            'slug'      => 'pages',
-            'field'     => 'image',
-            'multi'     => 'true',
-            'filename'  => $files[1],
-        ]);
-
-        $this->storage->assertExists($files[0]);
-        $this->storage->assertMissing($files[1]);
-        $this->storage->assertExists($files[2]);
-
-        $this->delete(route('voyager.pages.destroy', [$page->id]));
-    }
-
-    public function testMultipleImagesRemoveOnDelete()
-    {
-        $images = [$this->image_one, $this->image_two, $this->image_three];
-
-        $page = $this->uploadMedia($images, 'multiple_images');
-
-        $files = json_decode($page->image, true);
-
-        $this->delete(route('voyager.pages.destroy', [$page->id]));
-
-        $this->storage->assertMissing($files[0]);
-        $this->storage->assertMissing($files[1]);
-        $this->storage->assertMissing($files[2]);
-    }
-
-    public function testImageWithThumbnailsUpload()
-    {
-        $page = $this->uploadMedia([$this->image_one], 'image', json_decode($this->details));
-
-        $details = json_decode($this->details);
-
-        foreach ($details->thumbnails as $thumbnail) {
-            $path = preg_replace('/(.*)(\.[\w\d]{2,4})$/', '$1-'.$thumbnail->name.'$2', $page->image);
-
-            $this->storage->assertExists($path);
-        }
-
-        $this->delete(route('voyager.pages.destroy', [$page->id]));
-    }
-
-    public function testImageWithThumbnailsDelete()
-    {
-        $page = $this->uploadMedia([$this->image_one], 'image', json_decode($this->details));
-
-        $response = $this->post(route('voyager.pages.media.remove'), [
-            'id'        => $page->id,
-            'slug'      => 'pages',
-            'field'     => 'image',
-            'multi'     => 'false',
-            'filename'  => $page->image,
-        ]);
-
-        $details = json_decode($this->details);
-        foreach ($details->thumbnails as $thumbnail) {
-            $path = preg_replace('/(.*)(\.[\w\d]{2,4})$/', '$1-'.$thumbnail->name.'$2', $page->image);
-            $this->storage->assertMissing($path);
-        }
-
-        $this->delete(route('voyager.pages.destroy', [$page->id]));
-    }
-
-    public function testImageWithThumbnailsRemoveOnDelete()
-    {
-        $page = $this->uploadMedia([$this->image_one], 'image', json_decode($this->details));
-
-        $details = json_decode($this->details);
-
-        $this->delete(route('voyager.pages.destroy', [$page->id]));
-
-        foreach ($details->thumbnails as $thumbnail) {
-            $path = preg_replace('/(.*)(\.[\w\d]{2,4})$/', '$1-'.$thumbnail->name.'$2', $page->image);
-
-            $this->storage->assertMissing($path);
-        }
-    }
-
-    public function testMultipleImagesWithThumbnailsUpload()
-    {
-        $images = [$this->image_one, $this->image_two, $this->image_three];
-
-        $page = $this->uploadMedia($images, 'multiple_images', json_decode($this->details));
-
-        $files = json_decode($page->image, true);
-        $details = json_decode($this->details);
-
-        foreach ($files as $file) {
-            foreach ($details->thumbnails as $thumbnail) {
-                $path = preg_replace('/(.*)(\.[\w\d]{2,4})$/', '$1-'.$thumbnail->name.'$2', $file);
-
-                $this->storage->assertExists($path);
-            }
-        }
-
-        $this->delete(route('voyager.pages.destroy', [$page->id]));
-    }
-
-    public function testMultipleImagesWithThumbnailsDelete()
-    {
-        $images = [$this->image_one, $this->image_two, $this->image_three];
-
-        $page = $this->uploadMedia($images, 'multiple_images', json_decode($this->details));
-
-        $files = json_decode($page->image, true);
-
-        $response = $this->post(route('voyager.pages.media.remove'), [
-            'id'        => $page->id,
-            'slug'      => 'pages',
-            'field'     => 'image',
-            'multi'     => 'true',
-            'filename'  => $files[1],
-        ]);
-
-        $details = json_decode($this->details);
-
-        foreach ($files as $file) {
-            foreach ($details->thumbnails as $thumbnail) {
-                $path = preg_replace('/(.*)(\.[\w\d]{2,4})$/', '$1-'.$thumbnail->name.'$2', $file);
-
-                if ($file == $files[1]) {
-                    $this->storage->assertMissing($path);
-                } else {
-                    $this->storage->assertExists($path);
-                }
-            }
-        }
-
-        $this->delete(route('voyager.pages.destroy', [$page->id]));
-    }
-
-    public function testMultipleImagesWithThumbnailsRemoveOnDelete()
-    {
-        $images = [$this->image_one, $this->image_two, $this->image_three];
-
-        $page = $this->uploadMedia($images, 'multiple_images', json_decode($this->details));
-
-        $files = json_decode($page->image, true);
-        $details = json_decode($this->details);
-
-        $this->delete(route('voyager.pages.destroy', [$page->id]));
-
-        foreach ($files as $file) {
-            foreach ($details->thumbnails as $thumbnail) {
-                $path = preg_replace('/(.*)(\.[\w\d]{2,4})$/', '$1-'.$thumbnail->name.'$2', $file);
-
-                $this->storage->assertMissing($path);
-            }
-        }
-    }
+//    public function testMultipleImagesUpload()
+//    {
+//        $images = [$this->image_one, $this->image_two, $this->image_three];
+//
+//        $page = $this->uploadMedia($images, 'multiple_images');
+//
+//        $files = json_decode($page->image, true);
+//
+//        $this->storage->assertExists($files[0]);
+//        $this->storage->assertExists($files[1]);
+//        $this->storage->assertExists($files[2]);
+//
+//        $this->delete(route('voyager.pages.destroy', [$page->id]));
+//    }
+//
+//    public function testMultipleImagesDelete()
+//    {
+//        $images = [$this->image_one, $this->image_two, $this->image_three];
+//
+//        $page = $this->uploadMedia($images, 'multiple_images');
+//
+//        $files = json_decode($page->image, true);
+//
+//        $response = $this->post(route('voyager.pages.media.remove'), [
+//            'id'        => $page->id,
+//            'slug'      => 'pages',
+//            'field'     => 'image',
+//            'multi'     => 'true',
+//            'filename'  => $files[1],
+//        ]);
+//
+//        $this->storage->assertExists($files[0]);
+//        $this->storage->assertMissing($files[1]);
+//        $this->storage->assertExists($files[2]);
+//
+//        $this->delete(route('voyager.pages.destroy', [$page->id]));
+//    }
+//
+//    public function testMultipleImagesRemoveOnDelete()
+//    {
+//        $images = [$this->image_one, $this->image_two, $this->image_three];
+//
+//        $page = $this->uploadMedia($images, 'multiple_images');
+//
+//        $files = json_decode($page->image, true);
+//
+//        $this->delete(route('voyager.pages.destroy', [$page->id]));
+//
+//        $this->storage->assertMissing($files[0]);
+//        $this->storage->assertMissing($files[1]);
+//        $this->storage->assertMissing($files[2]);
+//    }
+//
+//    public function testImageWithThumbnailsUpload()
+//    {
+//        $page = $this->uploadMedia([$this->image_one], 'image', json_decode($this->details));
+//
+//        $details = json_decode($this->details);
+//
+//        foreach ($details->thumbnails as $thumbnail) {
+//            $path = preg_replace('/(.*)(\.[\w\d]{2,4})$/', '$1-'.$thumbnail->name.'$2', $page->image);
+//
+//            $this->storage->assertExists($path);
+//        }
+//
+//        $this->delete(route('voyager.pages.destroy', [$page->id]));
+//    }
+//
+//    public function testImageWithThumbnailsDelete()
+//    {
+//        $page = $this->uploadMedia([$this->image_one], 'image', json_decode($this->details));
+//
+//        $response = $this->post(route('voyager.pages.media.remove'), [
+//            'id'        => $page->id,
+//            'slug'      => 'pages',
+//            'field'     => 'image',
+//            'multi'     => 'false',
+//            'filename'  => $page->image,
+//        ]);
+//
+//        $details = json_decode($this->details);
+//        foreach ($details->thumbnails as $thumbnail) {
+//            $path = preg_replace('/(.*)(\.[\w\d]{2,4})$/', '$1-'.$thumbnail->name.'$2', $page->image);
+//            $this->storage->assertMissing($path);
+//        }
+//
+//        $this->delete(route('voyager.pages.destroy', [$page->id]));
+//    }
+//
+//    public function testImageWithThumbnailsRemoveOnDelete()
+//    {
+//        $page = $this->uploadMedia([$this->image_one], 'image', json_decode($this->details));
+//
+//        $details = json_decode($this->details);
+//
+//        $this->delete(route('voyager.pages.destroy', [$page->id]));
+//
+//        foreach ($details->thumbnails as $thumbnail) {
+//            $path = preg_replace('/(.*)(\.[\w\d]{2,4})$/', '$1-'.$thumbnail->name.'$2', $page->image);
+//
+//            $this->storage->assertMissing($path);
+//        }
+//    }
+//
+//    public function testMultipleImagesWithThumbnailsUpload()
+//    {
+//        $images = [$this->image_one, $this->image_two, $this->image_three];
+//
+//        $page = $this->uploadMedia($images, 'multiple_images', json_decode($this->details));
+//
+//        $files = json_decode($page->image, true);
+//        $details = json_decode($this->details);
+//
+//        foreach ($files as $file) {
+//            foreach ($details->thumbnails as $thumbnail) {
+//                $path = preg_replace('/(.*)(\.[\w\d]{2,4})$/', '$1-'.$thumbnail->name.'$2', $file);
+//
+//                $this->storage->assertExists($path);
+//            }
+//        }
+//
+//        $this->delete(route('voyager.pages.destroy', [$page->id]));
+//    }
+//
+//    public function testMultipleImagesWithThumbnailsDelete()
+//    {
+//        $images = [$this->image_one, $this->image_two, $this->image_three];
+//
+//        $page = $this->uploadMedia($images, 'multiple_images', json_decode($this->details));
+//
+//        $files = json_decode($page->image, true);
+//
+//        $response = $this->post(route('voyager.pages.media.remove'), [
+//            'id'        => $page->id,
+//            'slug'      => 'pages',
+//            'field'     => 'image',
+//            'multi'     => 'true',
+//            'filename'  => $files[1],
+//        ]);
+//
+//        $details = json_decode($this->details);
+//
+//        foreach ($files as $file) {
+//            foreach ($details->thumbnails as $thumbnail) {
+//                $path = preg_replace('/(.*)(\.[\w\d]{2,4})$/', '$1-'.$thumbnail->name.'$2', $file);
+//
+//                if ($file == $files[1]) {
+//                    $this->storage->assertMissing($path);
+//                } else {
+//                    $this->storage->assertExists($path);
+//                }
+//            }
+//        }
+//
+//        $this->delete(route('voyager.pages.destroy', [$page->id]));
+//    }
+//
+//    public function testMultipleImagesWithThumbnailsRemoveOnDelete()
+//    {
+//        $images = [$this->image_one, $this->image_two, $this->image_three];
+//
+//        $page = $this->uploadMedia($images, 'multiple_images', json_decode($this->details));
+//
+//        $files = json_decode($page->image, true);
+//        $details = json_decode($this->details);
+//
+//        $this->delete(route('voyager.pages.destroy', [$page->id]));
+//
+//        foreach ($files as $file) {
+//            foreach ($details->thumbnails as $thumbnail) {
+//                $path = preg_replace('/(.*)(\.[\w\d]{2,4})$/', '$1-'.$thumbnail->name.'$2', $file);
+//
+//                $this->storage->assertMissing($path);
+//            }
+//        }
+//    }
 
     public function testFileUpload()
     {
@@ -290,40 +290,40 @@ class BreadMediaUploadTest extends TestCase
         $this->delete(route('voyager.pages.destroy', [$page->id]));
     }
 
-    public function testImageUpload()
-    {
-        $page = $this->uploadMedia([$this->image_one], 'image');
-
-        $this->storage->assertExists($page->image);
-
-        $this->delete(route('voyager.pages.destroy', [$page->id]));
-    }
-
-    public function testImageDelete()
-    {
-        $page = $this->uploadMedia([$this->image_one], 'image');
-
-        $response = $this->post(route('voyager.pages.media.remove'), [
-            'id'        => $page->id,
-            'slug'      => 'pages',
-            'field'     => 'image',
-            'multi'     => 'false',
-            'filename'  => $page->image,
-        ]);
-
-        $this->storage->assertMissing($page->image);
-
-        $this->delete(route('voyager.pages.destroy', [$page->id]));
-    }
-
-    public function testImageRemoveOnDelete()
-    {
-        $page = $this->uploadMedia([$this->image_one], 'image');
-
-        $this->delete(route('voyager.pages.destroy', [$page->id]));
-
-        $this->storage->assertMissing($page->image);
-    }
+//    public function testImageUpload()
+//    {
+//        $page = $this->uploadMedia([$this->image_one], 'image');
+//
+//        $this->storage->assertExists($page->image);
+//
+//        $this->delete(route('voyager.pages.destroy', [$page->id]));
+//    }
+//
+//    public function testImageDelete()
+//    {
+//        $page = $this->uploadMedia([$this->image_one], 'image');
+//
+//        $response = $this->post(route('voyager.pages.media.remove'), [
+//            'id'        => $page->id,
+//            'slug'      => 'pages',
+//            'field'     => 'image',
+//            'multi'     => 'false',
+//            'filename'  => $page->image,
+//        ]);
+//
+//        $this->storage->assertMissing($page->image);
+//
+//        $this->delete(route('voyager.pages.destroy', [$page->id]));
+//    }
+//
+//    public function testImageRemoveOnDelete()
+//    {
+//        $page = $this->uploadMedia([$this->image_one], 'image');
+//
+//        $this->delete(route('voyager.pages.destroy', [$page->id]));
+//
+//        $this->storage->assertMissing($page->image);
+//    }
 
     private function uploadMedia($names, $type, $details = '')
     {

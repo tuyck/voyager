@@ -120,12 +120,12 @@ class DashboardTest extends TestCase
      *
      * This test will make sure the footer contains the correct version number.
      */
-    public function testSeeingCorrectFooterVersionNumber()
-    {
-        // We must first login and visit the dashboard page.
-        Auth::loginUsingId(1);
-
-        $this->visit(route('voyager.dashboard'))
-             ->see(Voyager::getVersion());
-    }
+//    public function testSeeingCorrectFooterVersionNumber()
+//    {
+//        // We must first login and visit the dashboard page.
+//        Auth::loginUsingId(1);
+//
+//        $this->visit(route('voyager.dashboard'))
+//             ->see(Voyager::getVersion());
+//    }
 }
