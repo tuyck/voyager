@@ -3,7 +3,7 @@
 Voyager is super easy to install. After creating your new Laravel application you can include the Voyager package with the following command:
 
 ```bash
-composer require tcg/voyager
+composer require tuyck/voyager
 ```
 
 Next make sure to create a new database and add your database credentials to your .env file, you will also want to add your application URL in the `APP_URL` variable:
@@ -70,7 +70,7 @@ This section is meant for users who are installing Voyager on an already existin
 The first thing you should do is publish the assets that come with Voyager. You can do that by running the following commands:
 
 ```bash
-php artisan vendor:publish --provider="TCG\Voyager\VoyagerServiceProvider"
+php artisan vendor:publish --provider="Tuyck\Voyager\VoyagerServiceProvider"
 php artisan vendor:publish --provider="Intervention\Image\ImageServiceProviderLaravelRecent"
 ```
 
@@ -80,12 +80,12 @@ Next, call `php artisan migrate` to migrate all Voyager table.
 If you want to change migrations, for example to use a different table for users, don't migrate. Instead copy Voyagers migrations to `database/migrations`, make your changes, turn off the config option `database.autoload_migrations` and then migrate.
 {% endhint %}
 
-Now, open your User-Model \(usually `app/User.php`\) and make the class extend `\TCG\Voyager\Models\User` instead of `Authenticatable`.
+Now, open your User-Model \(usually `app/User.php`\) and make the class extend `\Tuyck\Voyager\Models\User` instead of `Authenticatable`.
 
 ```php
 <?php
 
-class User extends \TCG\Voyager\Models\User
+class User extends \Tuyck\Voyager\Models\User
 {
     // ...
 }

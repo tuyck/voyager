@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
-use Intervention\Image\ImageServiceProvider;
 use Tuyck\Voyager\Events\FormFieldsRegistered;
 use Tuyck\Voyager\Facades\Voyager as VoyagerFacade;
 use Tuyck\Voyager\FormFields\After\DescriptionHandler;
@@ -55,8 +54,21 @@ class VoyagerServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        /* ---------- Intervention/Image ---------- */
+        if (class_exists(\Intervention\Image\ImageServiceProvider::class)) { // 2.x
+            $this->app->register(\Intervention\Image\ImageServiceProvider::class);
+        } elseif (class_exists(\Intervention\Image\Laravel\ServiceProvider::class)) { // 3.x
+            $this->app->register(\Intervention\Image\Laravel\ServiceProvider::class);
+        }
+
+        /* (optional) same for the facade */
+        if (class_exists(\Intervention\Image\Facades\Image::class)) { // 2.x
+            $this->app->alias('image', \Intervention\Image\Facades\Image::class);
+        } elseif (class_exists(\Intervention\Image\Laravel\Facades\Image::class)) { // 3.x
+            $this->app->alias('image', \Intervention\Image\Laravel\Facades\Image::class);
+        }
+
         $this->app->register(VoyagerEventServiceProvider::class);
-        $this->app->register(ImageServiceProvider::class);
         $this->app->register(VoyagerDummyServiceProvider::class);
 
         $loader = AliasLoader::getInstance();
