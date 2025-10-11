@@ -1,5 +1,5 @@
 > [!Warning]
-> The main Voyager repository is archived by [The Control Group](https://www.thecontrolgroup.com) as there are many more modern options available. You may still use Voyager, but it will not be receiving any more updates.
+> The main Voyager repository is archived by [Tuyck](https://www.tuyck.com) as there are many more modern options available. You may still use Voyager, but it will not be receiving any more updates.
 
 > [!Note]
 > This repository is fun place for my personal usage and still is under adjustment
@@ -13,8 +13,6 @@
 </p>
 
 # **V**oyager - The Missing Laravel Admin
-
-![Voyager Screenshot](https://s3.amazonaws.com/thecontrolgroup/voyager-screenshot.png)
 
 Website & Documentation: https://voyager.tuyck.com/
 

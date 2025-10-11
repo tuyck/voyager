@@ -38,14 +38,6 @@
                    aria-expanded="false"><img src="{{ $user_avatar }}" class="profile-img"> <span
                             class="caret"></span></a>
                 <ul class="dropdown-menu dropdown-menu-animated">
-                    <li class="profile-img">
-                        <img src="{{ $user_avatar }}" class="profile-img">
-                        <div class="profile-body">
-                            <h5>{{ Auth::user()->name }}</h5>
-                            <h6>{{ Auth::user()->email }}</h6>
-                        </div>
-                    </li>
-                    <li class="divider"></li>
                     <?php $nav_items = config('voyager.dashboard.navbar_items'); ?>
                     @if(is_array($nav_items) && !empty($nav_items))
                     @foreach($nav_items as $name => $item)
@@ -53,9 +45,9 @@
                         @if(isset($item['route']) && $item['route'] == 'voyager.logout')
                         <form action="{{ route('voyager.logout') }}" method="POST">
                             {{ csrf_field() }}
-                            <button type="submit" class="btn btn-danger btn-block">
+                            <button type="submit" style="background: transparent;color: #777;font-weight: normal;border: 0;float: left;position: relative;">
                                 @if(isset($item['icon_class']) && !empty($item['icon_class']))
-                                <i class="{!! $item['icon_class'] !!}"></i>
+                                <i class="{!! $item['icon_class'] !!}" style="position: relative;top: 2px;"></i>
                                 @endif
                                 {{__($name)}}
                             </button>

@@ -2686,9 +2686,10 @@ a.text-action{color:#a3afb7}a.text-action,a.text-action:focus,a.text-action:hove
     color: #353d47;
     width: 100%;
     text-align: right;
-    padding: 10px 0;
-    background: #fff;
-    left: 0px;
+    padding: 20px 0 0 0;
+    background: #f9f9f9;
+    height: 40px;
+    font-size: 10px;
 }
 
 .voyager .app-footer i {
@@ -4693,7 +4694,7 @@ overflow-x: hidden;
 
 .navbar .dropdown.profile .dropdown-menu{
   width:250px;
-  padding: 18px;
+  padding: 10px;
   display: none;
   position: relative !important;
   visibility: hidden;
@@ -4701,6 +4702,7 @@ overflow-x: hidden;
 
 .navbar .dropdown.profile .dropdown-menu h5, .navbar .dropdown.profile .dropdown-menu h6{
   float:left;
+  text-align:left;
 }
 
 .navbar .dropdown.profile .dropdown-menu h6{
@@ -4714,7 +4716,7 @@ overflow-x: hidden;
 .profile .dropdown-toggle img{
   width:30px;
   height:30px;
-  border-radius:50%;
+  border-radius:5px;
 }
 
 .navbar .dropdown.profile .dropdown-menu h5{
@@ -4726,7 +4728,7 @@ float: left;
 
 .dropdown-menu>li>a{
    display: block;
-    padding: 10px 5px;
+    padding: 3px 5px;
     clear: both;
     font-weight: 400;
     line-height: 1.42857143;
@@ -4772,7 +4774,7 @@ float: left;
   height: 60px;
     width: 60px;
     float:left;
-    border-radius:50%;
+    border-radius:5px;
     margin-right:10px;
 }
 
@@ -4962,7 +4964,7 @@ float: left;
     width: 100px;
     height: auto;
     border: 0 none;
-    border-radius: 50%;
+    border-radius: 5px;
 }
 
 .panel.widget i{
