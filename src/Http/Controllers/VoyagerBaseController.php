@@ -1,20 +1,20 @@
 <?php
 
-namespace TCG\Voyager\Http\Controllers;
+namespace Tuyck\Voyager\Http\Controllers;
 
 use Exception;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use TCG\Voyager\Database\Schema\SchemaManager;
-use TCG\Voyager\Events\BreadDataAdded;
-use TCG\Voyager\Events\BreadDataDeleted;
-use TCG\Voyager\Events\BreadDataRestored;
-use TCG\Voyager\Events\BreadDataUpdated;
-use TCG\Voyager\Events\BreadImagesDeleted;
-use TCG\Voyager\Facades\Voyager;
-use TCG\Voyager\Http\Controllers\Traits\BreadRelationshipParser;
+use Tuyck\Voyager\Database\Schema\SchemaManager;
+use Tuyck\Voyager\Events\BreadDataAdded;
+use Tuyck\Voyager\Events\BreadDataDeleted;
+use Tuyck\Voyager\Events\BreadDataRestored;
+use Tuyck\Voyager\Events\BreadDataUpdated;
+use Tuyck\Voyager\Events\BreadImagesDeleted;
+use Tuyck\Voyager\Facades\Voyager;
+use Tuyck\Voyager\Http\Controllers\Traits\BreadRelationshipParser;
 
 class VoyagerBaseController extends Controller
 {

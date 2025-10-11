@@ -1,6 +1,6 @@
 <?php
 
-namespace TCG\Voyager;
+namespace Tuyck\Voyager;
 
 use Arrilot\Widgets\Facade as Widget;
 use Illuminate\Database\Eloquent\Collection;
@@ -10,26 +10,26 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use TCG\Voyager\Actions\DeleteAction;
-use TCG\Voyager\Actions\EditAction;
-use TCG\Voyager\Actions\RestoreAction;
-use TCG\Voyager\Actions\ViewAction;
-use TCG\Voyager\Events\AlertsCollection;
-use TCG\Voyager\FormFields\After\HandlerInterface as AfterHandlerInterface;
-use TCG\Voyager\FormFields\HandlerInterface;
-use TCG\Voyager\Models\Category;
-use TCG\Voyager\Models\DataRow;
-use TCG\Voyager\Models\DataType;
-use TCG\Voyager\Models\Menu;
-use TCG\Voyager\Models\MenuItem;
-use TCG\Voyager\Models\Page;
-use TCG\Voyager\Models\Permission;
-use TCG\Voyager\Models\Post;
-use TCG\Voyager\Models\Role;
-use TCG\Voyager\Models\Setting;
-use TCG\Voyager\Models\Translation;
-use TCG\Voyager\Models\User;
-use TCG\Voyager\Traits\Translatable;
+use Tuyck\Voyager\Actions\DeleteAction;
+use Tuyck\Voyager\Actions\EditAction;
+use Tuyck\Voyager\Actions\RestoreAction;
+use Tuyck\Voyager\Actions\ViewAction;
+use Tuyck\Voyager\Events\AlertsCollection;
+use Tuyck\Voyager\FormFields\After\HandlerInterface as AfterHandlerInterface;
+use Tuyck\Voyager\FormFields\HandlerInterface;
+use Tuyck\Voyager\Models\Category;
+use Tuyck\Voyager\Models\DataRow;
+use Tuyck\Voyager\Models\DataType;
+use Tuyck\Voyager\Models\Menu;
+use Tuyck\Voyager\Models\MenuItem;
+use Tuyck\Voyager\Models\Page;
+use Tuyck\Voyager\Models\Permission;
+use Tuyck\Voyager\Models\Post;
+use Tuyck\Voyager\Models\Role;
+use Tuyck\Voyager\Models\Setting;
+use Tuyck\Voyager\Models\Translation;
+use Tuyck\Voyager\Models\User;
+use Tuyck\Voyager\Traits\Translatable;
 
 class Voyager
 {
@@ -310,7 +310,7 @@ class Voyager
 
             // Loop through all the packages and get the version of voyager
             foreach ($file->packages as $package) {
-                if ($package->name == 'tcg/voyager') {
+                if ($package->name == 'Tuyck/voyager') {
                     $this->version = $package->version;
                     break;
                 }

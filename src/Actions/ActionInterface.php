@@ -1,6 +1,6 @@
 <?php
 
-namespace TCG\Voyager\Actions;
+namespace Tuyck\Voyager\Actions;
 
 interface ActionInterface
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace TCG\Voyager\Models;
+namespace Tuyck\Voyager\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use TCG\Voyager\Facades\Voyager;
-use TCG\Voyager\Traits\Translatable;
+use Tuyck\Voyager\Facades\Voyager;
+use Tuyck\Voyager\Traits\Translatable;
 
 class Category extends Model
 {

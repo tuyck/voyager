@@ -1,9 +1,9 @@
 <?php
 
-namespace TCG\Voyager\FormFields;
+namespace Tuyck\Voyager\FormFields;
 
 use Illuminate\Support\Str;
-use TCG\Voyager\Traits\Renderable;
+use Tuyck\Voyager\Traits\Renderable;
 
 abstract class AbstractHandler implements HandlerInterface
 {

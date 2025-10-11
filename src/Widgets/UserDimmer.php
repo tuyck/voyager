@@ -1,10 +1,10 @@
 <?php
 
-namespace TCG\Voyager\Widgets;
+namespace Tuyck\Voyager\Widgets;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use TCG\Voyager\Facades\Voyager;
+use Tuyck\Voyager\Facades\Voyager;
 
 class UserDimmer extends BaseDimmer
 {

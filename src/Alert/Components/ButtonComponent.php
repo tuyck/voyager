@@ -1,6 +1,6 @@
 <?php
 
-namespace TCG\Voyager\Alert\Components;
+namespace Tuyck\Voyager\Alert\Components;
 
 class ButtonComponent extends AbstractComponent
 {

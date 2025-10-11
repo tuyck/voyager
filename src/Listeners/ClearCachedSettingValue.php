@@ -1,9 +1,9 @@
 <?php
 
-namespace TCG\Voyager\Listeners;
+namespace Tuyck\Voyager\Listeners;
 
 use Cache;
-use TCG\Voyager\Events\SettingUpdated;
+use Tuyck\Voyager\Events\SettingUpdated;
 
 class ClearCachedSettingValue
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace TCG\Voyager\Database\Schema;
+namespace Tuyck\Voyager\Database\Schema;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
