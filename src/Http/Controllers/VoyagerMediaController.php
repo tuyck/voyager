@@ -44,7 +44,7 @@ class VoyagerMediaController extends Controller
             $thumbnail_names = array_column(($options['thumbnails'] ?? []), 'name');
         }
 
-        $folder = $request->folder;
+        $folder = $this->sanitizePath($request->folder);
 
         if ($folder == '/') {
             $folder = '';
@@ -115,7 +115,7 @@ class VoyagerMediaController extends Controller
         // Check permission
         $this->authorize('browse_media');
 
-        $new_folder = $request->new_folder;
+        $new_folder = $this->sanitizePath($request->new_folder);
         $success = false;
         $error = '';
 
@@ -135,7 +135,7 @@ class VoyagerMediaController extends Controller
         // Check permission
         $this->authorize('browse_media');
 
-        $path = str_replace('//', '/', Str::finish($request->path, '/'));
+        $path = str_replace('//', '/', Str::finish($this->sanitizePath($request->path), '/'));
         $success = true;
         $error = '';
 
@@ -159,8 +159,8 @@ class VoyagerMediaController extends Controller
     {
         // Check permission
         $this->authorize('browse_media');
-        $path = str_replace('//', '/', Str::finish($request->path, '/'));
-        $dest = str_replace('//', '/', Str::finish($request->destination, '/'));
+        $path = str_replace('//', '/', Str::finish($this->sanitizePath($request->path), '/'));
+        $dest = str_replace('//', '/', Str::finish($this->sanitizePath($request->destination), '/'));
         if (strpos($dest, '/../') !== false) {
             $dest = substr($path, 0, -1);
             $dest = substr($dest, 0, strripos($dest, '/') + 1);
@@ -171,8 +171,9 @@ class VoyagerMediaController extends Controller
         $error = '';
 
         foreach ($request->get('files') as $file) {
-            $old_path = $path.$file['name'];
-            $new_path = $dest.$file['name'];
+            $safeName = $this->sanitizePath($file['name']);
+            $old_path = $path.$safeName;
+            $new_path = $dest.$safeName;
 
             try {
                 Storage::disk($this->filesystem)->move($old_path, $new_path);
@@ -192,9 +193,9 @@ class VoyagerMediaController extends Controller
         // Check permission
         $this->authorize('browse_media');
 
-        $folderLocation = $request->folder_location;
-        $filename = $request->filename;
-        $newFilename = $request->new_filename;
+        $folderLocation = $this->sanitizePath($request->folder_location);
+        $filename = $this->sanitizePath($request->filename);
+        $newFilename = $this->sanitizePath($request->new_filename);
         $success = false;
         $error = false;
 
@@ -232,7 +233,10 @@ class VoyagerMediaController extends Controller
         $extension = $request->file->getClientOriginalExtension();
         $name = Str::replaceLast('.'.$extension, '', $request->file->getClientOriginalName());
         $details = json_decode($request->get('details') ?? '{}');
-        $absolute_path = Storage::disk($this->filesystem)->path($request->upload_path);
+
+        $safeUploadPath = $this->sanitizePath($request->upload_path);
+
+        $absolute_path = Storage::disk($this->filesystem)->path($safeUploadPath);
 
         try {
             $realPath = Storage::disk($this->filesystem)->path('/');
@@ -316,7 +320,7 @@ class VoyagerMediaController extends Controller
                         ) {
                             $thumbnail = $this->addWatermarkToImage($thumbnail, $details->watermark);
                         }
-                        $thumbnail_file = $request->upload_path.$name.'-'.($thumbnail_data->name ?? 'thumbnail').'.'.$extension;
+                        $thumbnail_file = $safeUploadPath.$name.'-'.($thumbnail_data->name ?? 'thumbnail').'.'.$extension;
                         Storage::disk($this->filesystem)->put($thumbnail_file, $thumbnail->encode($extension, ($details->quality ?? 90))->encoded);
                     }
                 }
@@ -354,16 +358,20 @@ class VoyagerMediaController extends Controller
         $width = $request->get('width');
 
         $realPath = Storage::disk($this->filesystem)->path('/');
-        $originImagePath = $request->upload_path.'/'.$request->originImageName;
+
+        $safeOriginName = $this->sanitizePath($request->originImageName);
+        $safeUploadPath = $this->sanitizePath($request->upload_path);
+
+        $originImagePath = $safeUploadPath.'/'.$safeOriginName;
         $originImagePath = preg_replace('#/+#', '/', $originImagePath);
 
         try {
             if ($createMode) {
                 // create a new image with the cpopped data
-                $fileNameParts = explode('.', $request->originImageName);
+                $fileNameParts = explode('.', $safeOriginName);
                 array_splice($fileNameParts, count($fileNameParts) - 1, 0, 'cropped_'.time());
                 $newImageName = implode('.', $fileNameParts);
-                $destImagePath = preg_replace('#/+#', '/', $request->upload_path.'/'.$newImageName);
+                $destImagePath = preg_replace('#/+#', '/', $safeUploadPath.'/'.$newImageName);
             } else {
                 // override the original image
                 $destImagePath = $originImagePath;
@@ -385,7 +393,8 @@ class VoyagerMediaController extends Controller
 
     private function addWatermarkToImage($image, $options)
     {
-        $watermark = Image::make(Storage::disk($this->filesystem)->path($options->source));
+        $safeSource = $this->sanitizePath($options->source);
+        $watermark = Image::make(Storage::disk($this->filesystem)->path($safeSource));
         // Resize watermark
         $width = $image->width() * (($options->size ?? 15) / 100);
         $watermark->resize($width, null, function ($constraint) {
@@ -398,5 +407,16 @@ class VoyagerMediaController extends Controller
             ($options->x ?? 0),
             ($options->y ?? 0)
         );
+    }
+
+    /**
+     * Sanitize path to prevent directory traversal.
+     * Removes backslashes and double dots.
+     */
+    private function sanitizePath($path)
+    {
+        // Convert backslashes to forward slashes (standardization)
+        // Remove directory traversal sequences (..)
+        return str_replace(['..', '\\'], '', $path);
     }
 }
