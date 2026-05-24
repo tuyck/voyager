@@ -132,7 +132,7 @@
         $('#table-log').DataTable({
           "order": [1, 'desc'],
           "stateSave": true,
-          "language": {!! json_encode(__('voyager::datatable')) !!},
+          "language": @json(__('voyager::datatable')),
           "stateSaveCallback": function (settings, data) {
             window.localStorage.setItem("datatable", JSON.stringify(data));
           },

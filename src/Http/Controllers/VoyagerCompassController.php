@@ -24,9 +24,13 @@ class VoyagerCompassController extends Controller
         if (!\App::environment('local') && !config('voyager.compass_in_production', false)) {
             throw new AccessDeniedHttpException();
         }
+        // Define allowed tabs
+        $allowedTabs = ['resources', 'commands', 'logs'];
 
         $message = '';
-        $active_tab = '';
+        // Set default or sanitize input
+        $active_tab = $request->input('active_tab');
+        $active_tab = (in_array($active_tab, $allowedTabs)) ? $active_tab : 'resources';
 
         if ($this->request->input('log')) {
             $active_tab = 'logs';
@@ -46,7 +50,7 @@ class VoyagerCompassController extends Controller
             app('files')->delete(LogViewer::pathToLogFile(base64_decode($this->request->input('del'))));
 
             return redirect($this->request->url().'?logs=true')->with([
-                'message'    => __('voyager::compass.logs.delete_success').' '.base64_decode($this->request->input('del')),
+                'message'    => __('voyager::compass.logs.delete_success').' '.e(base64_decode($this->request->input('del'))),
                 'alert-type' => 'success',
             ]);
         } elseif ($this->request->has('delall')) {
