@@ -225,6 +225,9 @@ class VoyagerMediaController extends Controller
     {
         // Check permission
         $this->authorize('browse_media');
+        $request->validate([
+            'file' => 'required|file|mimes:jpeg,png,jpg,gif,svg,pdf,zip,doc,docx|max:2048',
+        ]);
 
         $extension = $request->file->getClientOriginalExtension();
         $name = Str::replaceLast('.'.$extension, '', $request->file->getClientOriginalName());
@@ -271,61 +274,58 @@ class VoyagerMediaController extends Controller
                 $content = Storage::disk($this->filesystem)->get($file);
                 $image = Image::make($content);
 
-                if ($request->file->getClientOriginalExtension() == 'gif') {
-                    copy($request->file->getRealPath(), $realPath.$file);
-                } else {
-                    $image = $image->orientate();
-                    // Generate thumbnails
-                    if (property_exists($details, 'thumbnails') && is_array($details->thumbnails)) {
-                        foreach ($details->thumbnails as $thumbnail_data) {
-                            $type = $thumbnail_data->type ?? 'fit';
-                            $thumbnail = Image::make(clone $image);
-                            if ($type == 'fit') {
-                                $thumbnail = $thumbnail->fit(
-                                    $thumbnail_data->width,
-                                    ($thumbnail_data->height ?? null),
-                                    function ($constraint) {
-                                        $constraint->aspectRatio();
-                                    },
-                                    ($thumbnail_data->position ?? 'center')
-                                );
-                            } elseif ($type == 'crop') {
-                                $thumbnail = $thumbnail->crop(
-                                    $thumbnail_data->width,
-                                    $thumbnail_data->height,
-                                    ($thumbnail_data->x ?? null),
-                                    ($thumbnail_data->y ?? null)
-                                );
-                            } elseif ($type == 'resize') {
-                                $thumbnail = $thumbnail->resize(
-                                    $thumbnail_data->width,
-                                    ($thumbnail_data->height ?? null),
-                                    function ($constraint) use ($thumbnail_data) {
-                                        $constraint->aspectRatio();
-                                        if (!($thumbnail_data->upsize ?? true)) {
-                                            $constraint->upsize();
-                                        }
+                $image = $image->orientate();
+                // Generate thumbnails
+                if (property_exists($details, 'thumbnails') && is_array($details->thumbnails)) {
+                    foreach ($details->thumbnails as $thumbnail_data) {
+                        $type = $thumbnail_data->type ?? 'fit';
+                        $thumbnail = Image::make(clone $image);
+                        if ($type == 'fit') {
+                            $thumbnail = $thumbnail->fit(
+                                $thumbnail_data->width,
+                                ($thumbnail_data->height ?? null),
+                                function ($constraint) {
+                                    $constraint->aspectRatio();
+                                },
+                                ($thumbnail_data->position ?? 'center')
+                            );
+                        } elseif ($type == 'crop') {
+                            $thumbnail = $thumbnail->crop(
+                                $thumbnail_data->width,
+                                $thumbnail_data->height,
+                                ($thumbnail_data->x ?? null),
+                                ($thumbnail_data->y ?? null)
+                            );
+                        } elseif ($type == 'resize') {
+                            $thumbnail = $thumbnail->resize(
+                                $thumbnail_data->width,
+                                ($thumbnail_data->height ?? null),
+                                function ($constraint) use ($thumbnail_data) {
+                                    $constraint->aspectRatio();
+                                    if (!($thumbnail_data->upsize ?? true)) {
+                                        $constraint->upsize();
                                     }
-                                );
-                            }
-                            if (
-                                property_exists($details, 'watermark') &&
-                                property_exists($details->watermark, 'source') &&
-                                property_exists($thumbnail_data, 'watermark') &&
-                                $thumbnail_data->watermark
-                            ) {
-                                $thumbnail = $this->addWatermarkToImage($thumbnail, $details->watermark);
-                            }
-                            $thumbnail_file = $request->upload_path.$name.'-'.($thumbnail_data->name ?? 'thumbnail').'.'.$extension;
-                            Storage::disk($this->filesystem)->put($thumbnail_file, $thumbnail->encode($extension, ($details->quality ?? 90))->encoded);
+                                }
+                            );
                         }
+                        if (
+                            property_exists($details, 'watermark') &&
+                            property_exists($details->watermark, 'source') &&
+                            property_exists($thumbnail_data, 'watermark') &&
+                            $thumbnail_data->watermark
+                        ) {
+                            $thumbnail = $this->addWatermarkToImage($thumbnail, $details->watermark);
+                        }
+                        $thumbnail_file = $request->upload_path.$name.'-'.($thumbnail_data->name ?? 'thumbnail').'.'.$extension;
+                        Storage::disk($this->filesystem)->put($thumbnail_file, $thumbnail->encode($extension, ($details->quality ?? 90))->encoded);
                     }
-                    // Add watermark to image
-                    if (property_exists($details, 'watermark') && property_exists($details->watermark, 'source')) {
-                        $image = $this->addWatermarkToImage($image, $details->watermark);
-                    }
-                    Storage::disk($this->filesystem)->put($file, $image->encode($extension, ($details->quality ?? 90))->encoded);
                 }
+                // Add watermark to image
+                if (property_exists($details, 'watermark') && property_exists($details->watermark, 'source')) {
+                    $image = $this->addWatermarkToImage($image, $details->watermark);
+                }
+                Storage::disk($this->filesystem)->put($file, $image->encode($extension, ($details->quality ?? 90))->encoded);
+
             }
 
             $success = true;

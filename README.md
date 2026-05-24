@@ -25,8 +25,11 @@ View the Voyager Cheat Sheet: https://voyager-cheatsheet.ulties.com/
 <hr>
 
 Laravel Admin & BREAD System (Browse, Read, Edit, Add, & Delete), supporting Laravel 8 and newer!
+> Want to use Laravel 9? Use [Voyager 1.6](https://github.com/tuyck/voyager/tree/1.6)
 
-> Want to use Laravel 9 or 10? Use [Voyager 1.7](https://github.com/tuyck/voyager/tree/1.7)
+> Want to use Laravel 10? Use [Voyager 1.7](https://github.com/tuyck/voyager/tree/1.7)
+
+> Want to use Laravel 11? Use [Voyager 1.8](https://github.com/tuyck/voyager/tree/1.8)
 
 ## Installation Steps
 
